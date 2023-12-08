@@ -1,0 +1,27 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+
+- script: |
+    python -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+  displayName: 'Install dependencies'
+
+- script: |
+    source venv/bin/activate
+    python -m pytest
+  displayName: 'Run tests' # If you have tests to run
+
+- script: |
+    source venv/bin/activate
+    python app.py # Replace with the command to run your script
+  displayName: 'Run Python application'
