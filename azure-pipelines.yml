@@ -21,21 +21,21 @@ steps:
 # Create and activate Conda environment
 - script: |
     source $HOME/miniconda/bin/activate
-    conda create --name webapp python=3.11.3
-    conda activate webapp
-    conda install -c conda-forge --file requirements.txt
+    conda create --name your_env_name python=3.11
+    conda activate your_env_name
+    pip install requests
   displayName: 'Create and setup Conda environment'
 
-# Run tests
+# (Optional) Run tests
 - script: |
     source $HOME/miniconda/bin/activate
-    conda activate webapp
+    conda activate your_env_name
     python -m pytest
   displayName: 'Run tests'
 
 # Run script
 - script: |
     source $HOME/miniconda/bin/activate
-    conda activate webapp
+    conda activate your_env_name
     python app2.py
   displayName: 'Run script'
