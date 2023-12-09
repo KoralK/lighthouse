@@ -21,7 +21,7 @@ steps:
 # Create and activate Conda environment
 - script: |
     source $HOME/miniconda/bin/activate
-    conda create --name your_env_name python=3.x
+    conda create --name your_env_name python=3.11
     conda activate your_env_name
     pip install requests
   displayName: 'Create and setup Conda environment'
