@@ -4,50 +4,19 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  CONDA_CACHE_DIR: $(Pipeline.Workspace)/.conda
-
 steps:
-- task: Cache@2
-  inputs:
-    key: 'conda | "$(Agent.OS)" | azure-pipelines.yml'
-    restoreKeys: |
-       conda | "$(Agent.OS)"
-    path: $(CONDA_CACHE_DIR)
-  displayName: 'Cache Conda'
-
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.x'
     addToPath: true
 
-# Setup Miniconda if not cached
 - script: |
-    if [ ! -d "$(CONDA_CACHE_DIR)/miniconda" ]; then
-      wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-      bash miniconda.sh -b -p $(CONDA_CACHE_DIR)/miniconda
-    fi
-    echo "##vso[task.prependpath]$(CONDA_CACHE_DIR)/miniconda/bin"
-    conda init bash
-  displayName: 'Install Miniconda'
+    python -m venv myenv
+    source myenv/bin/activate
+    pip install requests
+  displayName: 'Install dependencies with pip'
 
-# Install Mamba from Conda-Forge
 - script: |
-    source $(CONDA_CACHE_DIR)/miniconda/bin/activate
-    conda install mamba -c conda-forge
-  displayName: 'Install Mamba'
-
-# Create and activate Conda environment using Mamba
-- script: |
-    source $(CONDA_CACHE_DIR)/miniconda/bin/activate
-    mamba create --name myenv python=3.11 -c conda-forge
-    conda activate myenv
-    mamba install requests -c conda-forge
-  displayName: 'Create and setup Conda environment with Mamba'
-
-# Run script
-- script: |
-    source $(CONDA_CACHE_DIR)/miniconda/bin/activate
-    conda activate myenv
-    python app2.py
+    source myenv/bin/activate
+    python your_script.py
   displayName: 'Run script'
