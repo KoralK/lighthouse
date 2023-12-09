@@ -5,21 +5,37 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- checkout: self
-
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.x'
     addToPath: true
 
+# Setup Miniconda
 - script: |
-    pwd
-    ls -la
-  displayName: 'List directory contents'
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+    bash miniconda.sh -b -p $HOME/miniconda
+    echo "##vso[task.prependpath]$HOME/miniconda/bin"
+    conda init bash
+  displayName: 'Install Miniconda'
 
+# Create and activate Conda environment
 - script: |
-    python -m venv venv
-    source venv/bin/activate
-    pip install --upgrade pip
-    pip install -r requirements.txt
-  displayName: 'Install dependencies'
+    source $HOME/miniconda/bin/activate
+    conda create --name webapp python=3.11.3
+    conda activate webapp
+    conda install -c conda-forge --file requirements.txt
+  displayName: 'Create and setup Conda environment'
+
+# Run tests
+- script: |
+    source $HOME/miniconda/bin/activate
+    conda activate webapp
+    python -m pytest
+  displayName: 'Run tests'
+
+# Run script
+- script: |
+    source $HOME/miniconda/bin/activate
+    conda activate webapp
+    python app2.py
+  displayName: 'Run script'
