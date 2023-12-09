@@ -4,38 +4,50 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  CONDA_CACHE_DIR: $(Pipeline.Workspace)/.conda
+
 steps:
+- task: Cache@2
+  inputs:
+    key: 'conda | "$(Agent.OS)" | environment.yml'
+    restoreKeys: |
+       conda | "$(Agent.OS)"
+    path: $(CONDA_CACHE_DIR)
+  displayName: 'Cache Conda'
+
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.x'
     addToPath: true
 
-# Setup Miniconda
+# Setup Miniconda if not cached
 - script: |
-    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-    bash miniconda.sh -b -p $HOME/miniconda
-    echo "##vso[task.prependpath]$HOME/miniconda/bin"
+    if [ ! -d "$(CONDA_CACHE_DIR)/miniconda" ]; then
+      wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+      bash miniconda.sh -b -p $(CONDA_CACHE_DIR)/miniconda
+    fi
+    echo "##vso[task.prependpath]$(CONDA_CACHE_DIR)/miniconda/bin"
     conda init bash
   displayName: 'Install Miniconda'
 
-# Create and activate Conda environment
+# Install Mamba from Conda-Forge
 - script: |
-    source $HOME/miniconda/bin/activate
-    conda create --name your_env_name python=3.11
-    conda activate your_env_name
-    pip install requests
-  displayName: 'Create and setup Conda environment'
+    source $(CONDA_CACHE_DIR)/miniconda/bin/activate
+    conda install mamba -c conda-forge
+  displayName: 'Install Mamba'
 
-# (Optional) Run tests
+# Create and activate Conda environment using Mamba
 - script: |
-    source $HOME/miniconda/bin/activate
-    conda activate your_env_name
-    python -m pytest
-  displayName: 'Run tests'
+    source $(CONDA_CACHE_DIR)/miniconda/bin/activate
+    mamba create --name myenv python=3.11 -c conda-forge
+    conda activate myenv
+    mamba install requests -c conda-forge
+  displayName: 'Create and setup Conda environment with Mamba'
 
 # Run script
 - script: |
-    source $HOME/miniconda/bin/activate
-    conda activate your_env_name
+    source $(CONDA_CACHE_DIR)/miniconda/bin/activate
+    conda activate myenv
     python app2.py
   displayName: 'Run script'
