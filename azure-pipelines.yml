@@ -10,7 +10,7 @@ variables:
 steps:
 - task: Cache@2
   inputs:
-    key: 'conda | "$(Agent.OS)" | environment.yml'
+    key: 'conda | "$(Agent.OS)" | azure-pipelines.yml'
     restoreKeys: |
        conda | "$(Agent.OS)"
     path: $(CONDA_CACHE_DIR)
