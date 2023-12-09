@@ -18,5 +18,5 @@ steps:
 
 - script: |
     source myenv/bin/activate
-    python your_script.py
+    python app2.py
   displayName: 'Run script'
