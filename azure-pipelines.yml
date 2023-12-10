@@ -18,6 +18,11 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
+    python -m pip install pytest
+  displayName: 'Install pytest'
+
+
+- script: |
     source venv/bin/activate
     python -m pytest
   displayName: 'Run tests'
