@@ -7,14 +7,14 @@ pool:
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.x'
+    versionSpec: '3.11'
     addToPath: true
 
 - script: |
     python -m venv venv
     source venv/bin/activate
     python -m pip install --upgrade pip
-    pip install -r requirements.txt
+    pip install requests
   displayName: 'Install dependencies'
 
 - script: |
@@ -24,5 +24,5 @@ steps:
 
 - script: |
     source venv/bin/activate
-    python your_script.py
+    python app2.py
   displayName: 'Run script'
