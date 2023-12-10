@@ -18,6 +18,8 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
+    python -m venv venv
+    source venv/bin/activate
     python -m pip install pytest
   displayName: 'Install pytest'
 

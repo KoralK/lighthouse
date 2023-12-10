@@ -2,6 +2,7 @@ import json
 import requests
 import logging
 import os
+import pytest
 
 # Ensure the NEW_RELIC_API_KEY environment variable is set
 api_key = os.getenv('NEW_RELIC_API_KEY')
