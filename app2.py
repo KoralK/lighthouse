@@ -37,7 +37,7 @@ def send_data_to_new_relic(data):
         "Content-Type": "application/json"
     }
     # Replace YOUR_ACCOUNT_ID with your actual account ID
-    url = "https://insights-collector.newrelic.com/v1/accounts/YOUR_ACCOUNT_ID/events"
+    url = "https://insights-collector.newrelic.com/v1/accounts/4275397/events"
 
     response = requests.post(url, headers=headers, json=[data])
 
