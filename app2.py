@@ -33,7 +33,7 @@ print_data_for_verification(new_relic_data)
 def send_data_to_new_relic(data):
     logging.basicConfig(level=logging.DEBUG)
     headers = {
-        "Api-Key": "d9e702fe3d0e770f55a57e9ad279d8d0FFFFNRAL",
+        "Api-Key": "eu01xx527745a1e9849a14fa3a5df19bb731NRAL",
         "Content-Type": "application/json"
     }
     url = "https://insights-collector.newrelic.com/v1/accounts/YOUR_ACCOUNT_ID/events"  # Replace YOUR_ACCOUNT_ID with your actual account ID
