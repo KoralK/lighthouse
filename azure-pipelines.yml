@@ -18,6 +18,11 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
+    python app2.py
+  env:
+    NEW_RELIC_API_KEY: $(NEW_RELIC_API_KEY)
+
+- script: |
     source venv/bin/activate
     python app2.py
   displayName: 'Run script'
