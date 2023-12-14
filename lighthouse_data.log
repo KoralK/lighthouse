@@ -1,0 +1,16 @@
+2023-12-13 20:33:11,493 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2023-12-13 20:33:11,497 - INFO - Fetching Lighthouse data for https://au.pandora.net/en
+2023-12-13 20:33:42,356 - INFO - Data posted to New Relic successfully for https://au.pandora.net/en
+2023-12-13 20:36:51,399 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2023-12-13 20:36:51,399 - INFO - Added job "fetch_lighthouse_data" to job store "default"
+2023-12-13 20:36:51,399 - INFO - Scheduler started
+2023-12-13 21:30:52,999 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2023-12-13 21:30:52,999 - INFO - Fetching Lighthouse data for https://au.pandora.net/en
+2023-12-13 21:31:28,920 - INFO - Data posted to New Relic successfully for https://au.pandora.net/en
+2023-12-13 21:33:28,929 - INFO - Fetching Lighthouse data for https://au.pandora.net/en
+2023-12-13 21:34:05,435 - INFO - Data posted to New Relic successfully for https://au.pandora.net/en
+2023-12-13 21:53:55,085 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2023-12-13 21:53:55,085 - INFO - Fetching Lighthouse data for https://au.pandora.net/en
+2023-12-13 21:54:27,149 - INFO - Data posted to New Relic successfully for https://au.pandora.net/en
+2023-12-13 21:56:27,157 - INFO - Fetching Lighthouse data for https://au.pandora.net/en
+2023-12-13 21:56:59,450 - INFO - Data posted to New Relic successfully for https://au.pandora.net/en
